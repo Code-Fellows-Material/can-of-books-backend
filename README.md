@@ -54,9 +54,9 @@ Estimate of time needed to complete: 1.5hrs
 
 Start time: 2:40
 
-Finish time: _____
+Finish time: 4:10
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1.5hrs
 
 ---
 
@@ -64,7 +64,7 @@ Name of feature: Book Component
 
 Estimate of time needed to complete: 1.5hrs
 
-Start time: 
+Start time: 4:10
 
 Finish time: 
 

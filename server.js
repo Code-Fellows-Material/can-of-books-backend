@@ -12,7 +12,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3001;
 
-mongoose.connect(process.env.DB_LOCAL_URL);
+mongoose.connect(process.env.DB_URL);
 
 const db = mongoose.connection;
 // on the event of an error, do this:
