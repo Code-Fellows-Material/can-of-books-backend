@@ -6,13 +6,13 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const Book = require('./models/bookModel');
 
-
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
-mongoose.connect(process.env.DB_URL);
+mongoose.connect(process.env.DB_LOCAL_URL);
 
 const db = mongoose.connection;
 // on the event of an error, do this:
@@ -22,18 +22,29 @@ db.once('open', function() {
 console.log('Mongoose is connected')
 });
 
+//------------------------------------Routes------------------------------------
+
 
 app.get('/test', (request, response) => {
   response.send('test request received')
 })
 
 app.get('/books', handleGetBooks);
+app.post('/books', handlePostBooks);
 
+
+
+
+//------------------------------------Handlers------------------------------------
+
+//----get------
 async function handleGetBooks(req, res) {
   let userFromClient = {};
+
   if (req.query.user) {
     userFromClient = { email: req.query.user }
   }
+
   try {
     const booksFromDB = await Book.find(userFromClient);
     if (booksFromDB.length > 0) {
@@ -46,4 +57,20 @@ async function handleGetBooks(req, res) {
   }
 };
 
+//----post------
+async function handlePostBooks(req, res) {
+  try {
+    const createdBook = await Book.create(req.body)
+    res.status(201).send(createdBook);
+  } catch (e) {
+    res.status(500).send('Server Error');
+  }
+};
+
+//-----delete-------
+
+
+
+
+//------------------------------------Listener------------------------------------
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
