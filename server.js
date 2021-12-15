@@ -13,7 +13,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
-mongoose.connect(process.env.DB_LOCAL_URL);
+mongoose.connect(process.env.DB_URL);
 
 const db = mongoose.connection;
 // on the event of an error, do this:
@@ -67,7 +67,7 @@ async function handlePostBooks(req, res) {
     const createdBook = await Book.create(req.body)
     res.status(201).send(createdBook);
   } catch (e) {
-    res.status(500).send('Server Error');
+    res.status(500).send(e);
   }
 };
 
