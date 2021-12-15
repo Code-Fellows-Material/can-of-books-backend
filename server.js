@@ -62,7 +62,7 @@ async function handleGetBooks(req, res) {
 
 //----post------
 async function handlePostBooks(req, res) {
-  console.log("post hit")
+  console.log("post hit", req.body)
   try {
     const createdBook = await Book.create(req.body)
     res.status(201).send(createdBook);
