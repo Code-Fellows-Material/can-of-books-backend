@@ -73,7 +73,7 @@ async function handlePostBooks(req, res) {
 
 async function handleDeleteBooks(req, res) {
   if (req.query.email === req.params.email) {
-    const { id } = req.params
+    const { id } = req.params1
     // const id = req.params.id
     try {
       //delete the record
