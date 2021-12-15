@@ -27,12 +27,12 @@ console.log('Mongoose is connected')
 
 
 app.get('/test', (request, response) => {
-  console.log("test hit")
   response.send('test request received')
 })
 
 app.get('/books', handleGetBooks);
 app.post('/books', handlePostBooks);
+app.delete('/books/:id', handleDeleteBooks);
 
 
 
@@ -41,7 +41,6 @@ app.post('/books', handlePostBooks);
 
 //----get------
 async function handleGetBooks(req, res) {
-  console.log("get hit")
   let userFromClient = {};
 
   if (req.query.user) {
@@ -62,7 +61,6 @@ async function handleGetBooks(req, res) {
 
 //----post------
 async function handlePostBooks(req, res) {
-  console.log("post hit", req.body)
   try {
     const createdBook = await Book.create(req.body)
     res.status(201).send(createdBook);
@@ -73,6 +71,22 @@ async function handlePostBooks(req, res) {
 
 //-----delete-------
 
+async function handleDeleteBooks(req, res) {
+  if (req.query.email === req.params.email) {
+    const { id } = req.params
+    // const id = req.params.id
+    try {
+      //delete the record
+      await Book.findByIdAndDelete(id);
+      res.status(204).send('success')
+      // send back success
+    } catch (e) {
+      res.status(500).send('Server Error');
+    }
+  } else {
+    res.status(500).send('Server Error, Email does not match');
+  }
+}
 
 
 
