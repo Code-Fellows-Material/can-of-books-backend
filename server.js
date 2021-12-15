@@ -27,6 +27,7 @@ console.log('Mongoose is connected')
 
 
 app.get('/test', (request, response) => {
+  console.log("test hit")
   response.send('test request received')
 })
 
@@ -40,6 +41,7 @@ app.post('/books', handlePostBooks);
 
 //----get------
 async function handleGetBooks(req, res) {
+  console.log("get hit")
   let userFromClient = {};
 
   if (req.query.user) {
@@ -60,6 +62,7 @@ async function handleGetBooks(req, res) {
 
 //----post------
 async function handlePostBooks(req, res) {
+  console.log("post hit")
   try {
     const createdBook = await Book.create(req.body)
     res.status(201).send(createdBook);
