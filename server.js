@@ -20,22 +20,14 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // once db open, notify user via console.log
 db.once('open', function() {
-console.log('Mongoose is connected')
 });
 
 //------------------------------------Routes------------------------------------
 
-
-app.get('/test', (request, response) => {
-  response.send('test request received')
-})
-
 app.get('/books', handleGetBooks);
 app.post('/books', handlePostBooks);
 app.delete('/books/:id', handleDeleteBooks);
-
-
-
+app.put('/books/:id', handlePutBooks);
 
 //------------------------------------Handlers------------------------------------
 
@@ -74,11 +66,8 @@ async function handlePostBooks(req, res) {
 async function handleDeleteBooks(req, res) {
     const { id } = req.params;
     const { email } = req.query;
-    console.log('id', id, 'email', email);
     try {
-      console.log("before:");
       const book = await Book.findOne({ _id: id, email})
-      console.log("book", book);
       if(!book){
         res.status(400).send('unable to delete book');
       } else {
@@ -89,6 +78,24 @@ async function handleDeleteBooks(req, res) {
     res.status(500).send('Server Error');
   }
 }
+
+//------put------------
+
+  async function handlePutBooks(req, res) {
+    const { id } = req.params;
+    try {
+      const updatedBook = await Book.findByIdAndUpdate(id, req.body, { new: true, overwrite: true });
+      res.status(200).send(updatedBook);
+    } catch (e) {
+      res.status(500).send('Server Error');
+    }
+  }
+
+//----test-------
+
+  app.get('/test', (request, response) => {
+    response.send('test request received')
+  })
 
 
 //------------------------------------Listener------------------------------------
