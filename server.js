@@ -72,22 +72,23 @@ async function handlePostBooks(req, res) {
 //-----delete-------
 
 async function handleDeleteBooks(req, res) {
-  if (req.query.email === req.params.email) {
-    const { id } = req.params1
-    // const id = req.params.id
+    const { id } = req.params;
+    const { email } = req.query;
+    console.log('id', id, 'email', email);
     try {
-      //delete the record
-      await Book.findByIdAndDelete(id);
-      res.status(204).send('success')
-      // send back success
-    } catch (e) {
-      res.status(500).send('Server Error');
-    }
-  } else {
-    res.status(500).send('Server Error, Email does not match');
+      console.log("before:");
+      const book = await Book.findOne({ _id: id, email})
+      console.log("book", book);
+      if(!book){
+        res.status(400).send('unable to delete book');
+      } else {
+        await Book.findByIdAndDelete(id);
+        res.status(204).send('Book successfully deleted')
+      }      
+  } catch (e) {
+    res.status(500).send('Server Error');
   }
 }
-
 
 
 //------------------------------------Listener------------------------------------
