@@ -8,6 +8,7 @@ const Book = require('./models/bookModel');
 
 const app = express();
 app.use(cors());
+app.options('*', cors());  
 app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
