@@ -6,17 +6,13 @@ This repository has starter code to begin work on creating your own online books
 
 Books are life-changing. They have the power to enlighten, educate, entertain, heal, and help us grow. Build out this code base to create an web app to track what books have impacted you, and what's recommended to read next.
 
-## Use this template
-
-Clone this repo to your own account with the green "Use this template" button. Then, add any collaborators. Now you are ready to start adding features! Deploy your site to let the world know which books have had the greatest impact on you, and what's recommended. Enjoy!
-
 # Can of Books
 
 **Author**: Kellen Linse and Spencer Tower
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.1.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-- *Front End:* Send GET requests to server to retreive book data
+- *Front End:* Send GET, DELETE, POST requests to server to retreive book data
 - *Backend:* Receive requests from client, access data from database and return to client.
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
 
@@ -33,6 +29,7 @@ Technologies: React, Node.js, Javascript, MongoDB, express, Heroku, Netlify,
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 12-13-2001 2:30pm - can-of-books frontend and backend deployed to Netlify and Heroku
+12-14-2001 2:30pm - Add Create and Delete routes 
 
 ## Estimates
 <!-- See below -->
@@ -69,6 +66,28 @@ Start time: 4:10
 Finish time: 
 
 Actual time needed to complete: 
+
+---Name of feature: Back End
+
+Estimate of time needed to complete: 2hrs
+
+Start time: 1:00
+
+Finish time: 3:00
+
+Actual time needed to complete: 2hrs
+
+---
+
+Name of feature: Front End 
+
+Estimate of time needed to complete: 3hrs
+
+Start time: 3:00
+
+Finish time: 5:45
+
+Actual time needed to complete: 2.75hrs
 
 ---
 
