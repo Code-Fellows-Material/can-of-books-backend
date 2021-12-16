@@ -4,7 +4,6 @@ require("dotenv").config(); // need for process.env
 
 // 'seed' database with instances of things we want to store in db, so mongo db knows what the data structure should look like
 async function seed() {
-  console.log("seed function called");
   mongoose.connect(process.env.DB_URL);
 
   await Book.create({
