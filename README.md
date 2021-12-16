@@ -9,11 +9,11 @@ Books are life-changing. They have the power to enlighten, educate, entertain, h
 # Can of Books
 
 **Author**: Kellen Linse and Spencer Tower
-**Version**: 1.1.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.2.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-- *Front End:* Send GET, DELETE, POST requests to server to retreive book data
-- *Backend:* Receive requests from client, access data from database and return to client.
+- *Front End:* Send GET, DELETE, POST, PUT requests to server to retreive book data
+- *Backend:* Receive requests from client, access data from database, delete, modify, or return to client.
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
 
 ## Getting Started
@@ -30,6 +30,7 @@ Technologies: React, Node.js, Javascript, MongoDB, express, Heroku, Netlify,
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 12-13-2001 2:30pm - can-of-books frontend and backend deployed to Netlify and Heroku
 12-14-2001 2:30pm - Add Create and Delete routes 
+12-15-2001 2:30pm - Add Put routes 
 
 ## Estimates
 <!-- See below -->
@@ -88,6 +89,19 @@ Start time: 3:00
 Finish time: 5:45
 
 Actual time needed to complete: 2.75hrs
+
+---
+
+
+Name of feature: Put Route
+
+Estimate of time needed to complete: 3hrs
+
+Start time: 2:30
+
+Finish time: 5:45
+
+Actual time needed to complete: 3.25hrs
 
 ---
 
