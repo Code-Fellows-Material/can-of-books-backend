@@ -4,6 +4,8 @@ const jwksClient = require('jwks-rsa');
 // define client - connected to Auth0 account
 // putting return value of jsksClient in client
 // from jsonWebToken docs
+// jwks-rsa has to be added seperately
+
 const client = jwksClient({
   jwksUri: process.env.JWKS_URI
 });
