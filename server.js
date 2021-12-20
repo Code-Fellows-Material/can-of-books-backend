@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const Book = require('./models/bookModel');
+const verifyUser = require('./auth')
 
 const app = express();
 app.use(cors());
@@ -33,63 +34,92 @@ app.put('/books/:id', handlePutBooks);
 
 //----get------
 async function handleGetBooks(req, res) {
-  let userFromClient = {};
+  // let userFromClient = {};
 
-  if (req.query.user) {
-    userFromClient = { email: req.query.user }
-  }
-
-  try {
-    const booksFromDB = await Book.find(userFromClient);
-    if (booksFromDB.length > 0) {
-      res.status(200).send(booksFromDB);
+  // if (req.query.user) {
+  //   userFromClient = { email: req.query.user }
+  // }
+  // pass req and callback function
+  verifyUser(req, async (err, user) => {
+    if (err) {
+      console.error(err);
+      res.send('Invalid Token');
     } else {
-      res.status(404).send('No books found');
-    }
-  } catch(e) {
-    res.status(500).send('Server Error');
-  }
-};
+      try {
+        const booksFromDB = await Book.find({ email: user.email});
+        if (booksFromDB.length > 0) {
+          res.status(200).send(booksFromDB);
+        } else {
+          res.status(404).send('No books found');
+        }
+      } catch(e) {
+        res.status(500).send('Server Error');
+      }
+    };
+  });
+}
 
 //----post------
 async function handlePostBooks(req, res) {
-  try {
-    const createdBook = await Book.create(req.body)
-    res.status(201).send(createdBook);
-  } catch (e) {
-    res.status(500).send(e);
-  }
+  verifyUser(req, async (err, user) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send(e);
+      res.send('Invalid Token');
+    } else {
+      try {
+        const createdBook = await Book.create(req.body)
+        res.status(201).send(createdBook);
+      } catch (e) {
+        res.status(500).send(e);
+      }
+    };
+  })
 };
 
 //-----delete-------
 
 async function handleDeleteBooks(req, res) {
-    const { id } = req.params;
-    const { email } = req.query;
-    try {
-      const book = await Book.findOne({ _id: id, email})
-      if(!book){
-        res.status(400).send('unable to delete book');
+    
+    verifyUser(req, async (err, user) => {
+      if (err) {
+        res.send('Invalid Token');
       } else {
-        await Book.findByIdAndDelete(id);
-        res.status(204).send('Book successfully deleted')
-      }      
-  } catch (e) {
-    res.status(500).send('Server Error');
-  }
+        const { id } = req.params;
+        try {
+          const book = await Book.findOne({ _id: id, email: user.email})
+          if(!book){
+            res.status(400).send('Unable to delete book');
+          } else {
+            await Book.findByIdAndDelete(id);
+            res.status(204).send('Book successfully deleted')
+          }      
+      } catch (e) {
+        res.status(500).send('Server Error');
+      }
+    }
+  })
 }
 
 //------put------------
 
-  async function handlePutBooks(req, res) {
-    const { id } = req.params;
-    try {
-      const updatedBook = await Book.findByIdAndUpdate(id, req.body, { new: true, overwrite: true });
-      res.status(200).send(updatedBook);
-    } catch (e) {
-      res.status(500).send('Server Error');
+async function handlePutBooks(req, res) {
+  
+  verifyUser(req, async (err, user) => {
+    if (err) {
+      res.send('Invalid Token');
+    } else { 
+      const { id } = req.params;
+        try {
+        const updatedBook = await Book.findByIdAndUpdate(id, req.body, { new: true, overwrite: true });
+        res.status(200).send(updatedBook);
+      } catch (e) {
+        res.status(500).send('Server Error');
+      }
     }
-  }
+  })
+}
+
 
 //----test-------
 
